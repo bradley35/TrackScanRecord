@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C40E37C24AD9F0700795EAD /* FileHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40E37B24AD9F0700795EAD /* FileHolder.swift */; };
 		1C879DD724A7F6BA007896C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DD624A7F6BA007896C2 /* AppDelegate.swift */; };
 		1C879DD924A7F6BA007896C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DD824A7F6BA007896C2 /* SceneDelegate.swift */; };
 		1C879DDB24A7F6BA007896C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DDA24A7F6BA007896C2 /* ViewController.swift */; };
@@ -15,6 +16,11 @@
 		1C879DE324A7F6BB007896C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C879DE124A7F6BB007896C2 /* LaunchScreen.storyboard */; };
 		1C879DEE24A7F6BB007896C2 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DED24A7F6BB007896C2 /* TrackTests.swift */; };
 		1C879DF924A7F6BB007896C2 /* TrackUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DF824A7F6BB007896C2 /* TrackUITests.swift */; };
+		1CEF99B724AA6276001328C3 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEF99B624AA6276001328C3 /* RecordButton.swift */; };
+		1CEF99B924AAB614001328C3 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF99B824AAB614001328C3 /* ModelIO.framework */; };
+		1CEF99BA24AAB654001328C3 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF13B8924A7FC5C0049E147 /* ARKit.framework */; };
+		1CEF99BC24ABA8F2001328C3 /* ViewerSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEF99BB24ABA8F2001328C3 /* ViewerSave.swift */; };
+		1CF13B8C24A803540049E147 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF13B8B24A803540049E147 /* Metal.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C40E37B24AD9F0700795EAD /* FileHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHolder.swift; sourceTree = "<group>"; };
 		1C879DD324A7F6BA007896C2 /* Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Track.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C879DD624A7F6BA007896C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C879DD824A7F6BA007896C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +56,12 @@
 		1C879DF424A7F6BB007896C2 /* TrackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C879DF824A7F6BB007896C2 /* TrackUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackUITests.swift; sourceTree = "<group>"; };
 		1C879DFA24A7F6BB007896C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CEF99B624AA6276001328C3 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		1CEF99B824AAB614001328C3 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
+		1CEF99BB24ABA8F2001328C3 /* ViewerSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerSave.swift; sourceTree = "<group>"; };
+		1CF13B8924A7FC5C0049E147 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		1CF13B8B24A803540049E147 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		1CF13B8D24A927D30049E147 /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = System/Library/Frameworks/RealityKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +69,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CEF99BA24AAB654001328C3 /* ARKit.framework in Frameworks */,
+				1CEF99B924AAB614001328C3 /* ModelIO.framework in Frameworks */,
+				1CF13B8C24A803540049E147 /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +99,7 @@
 				1C879DEC24A7F6BB007896C2 /* TrackTests */,
 				1C879DF724A7F6BB007896C2 /* TrackUITests */,
 				1C879DD424A7F6BA007896C2 /* Products */,
+				1CF13B8824A7FC5C0049E147 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +120,9 @@
 				1C879DD824A7F6BA007896C2 /* SceneDelegate.swift */,
 				1C879DDA24A7F6BA007896C2 /* ViewController.swift */,
 				1C879DDC24A7F6BA007896C2 /* Main.storyboard */,
+				1C40E37B24AD9F0700795EAD /* FileHolder.swift */,
+				1CEF99BB24ABA8F2001328C3 /* ViewerSave.swift */,
+				1CEF99B624AA6276001328C3 /* RecordButton.swift */,
 				1C879DDF24A7F6BB007896C2 /* Assets.xcassets */,
 				1C879DE124A7F6BB007896C2 /* LaunchScreen.storyboard */,
 				1C879DE424A7F6BB007896C2 /* Info.plist */,
@@ -126,6 +146,17 @@
 				1C879DFA24A7F6BB007896C2 /* Info.plist */,
 			);
 			path = TrackUITests;
+			sourceTree = "<group>";
+		};
+		1CF13B8824A7FC5C0049E147 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1CEF99B824AAB614001328C3 /* ModelIO.framework */,
+				1CF13B8D24A927D30049E147 /* RealityKit.framework */,
+				1CF13B8B24A803540049E147 /* Metal.framework */,
+				1CF13B8924A7FC5C0049E147 /* ARKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +290,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CEF99B724AA6276001328C3 /* RecordButton.swift in Sources */,
 				1C879DDB24A7F6BA007896C2 /* ViewController.swift in Sources */,
 				1C879DD724A7F6BA007896C2 /* AppDelegate.swift in Sources */,
+				1C40E37C24AD9F0700795EAD /* FileHolder.swift in Sources */,
+				1CEF99BC24ABA8F2001328C3 /* ViewerSave.swift in Sources */,
 				1C879DD924A7F6BA007896C2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,6 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UFN89QD7RP;
 				INFOPLIST_FILE = Track/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -444,7 +479,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.bamapp.Track;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -455,6 +490,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UFN89QD7RP;
 				INFOPLIST_FILE = Track/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,7 +498,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.bamapp.Track;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
