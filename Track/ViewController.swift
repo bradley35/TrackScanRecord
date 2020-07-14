@@ -13,13 +13,20 @@ import ModelIO
 import Metal
 import MetalKit
 class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, RecordButtonDelegate {
-
+    
     @IBOutlet weak var scene: ARSCNView!
     @IBOutlet weak var sideView: UIView!
     
     let ar = ARSession()
     let config = ARWorldTrackingConfiguration()
     let coach = ARCoachingOverlayView()
+    var detected:Bool = false
+    var images:Set<ARReferenceImage>?
+    var anchorAnchor:ARAnchor?
+    var workingProject:Project?
+    
+    @IBOutlet weak var statusLight: UIView!
+    @IBOutlet weak var statusLabel: UILabel!
     
     let done = UIButton(frame: CGRect(x:20, y:210, width:60, height:60))
     var record:RecordButton!
@@ -28,24 +35,10 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         scene.backgroundColor=UIColor.white
-        switch AVCaptureDevice.authorizationStatus(for: .video){
-            case .authorized:
-                print("All Good")
-            case .notDetermined:
-                AVCaptureDevice.requestAccess(for: .video) { (allowed) in
-                    print(allowed)
-            }
-            default:
-                //Not allowed
-                print("oh No")
-                fatalError("Must Allow Camera")
-        }
         
- 
         config.sceneReconstruction = []
         config.planeDetection = []//[.horizontal, .vertical]
         
-        ar.run(config, options: [.resetTracking, .removeExistingAnchors])
         scene.session = ar
         scene.delegate = self
         scene.autoenablesDefaultLighting = true
@@ -69,6 +62,8 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
         record.delegate = self
         sideView.addSubview(record)
         
+        statusLight.layer.cornerRadius = 5
+        
         let reset = UIButton(frame: CGRect(x:0, y:10, width:100, height:100))
         reset.setImage(UIImage(systemName: "arrow.counterclockwise.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .thin)), for: .normal)
         reset.tintColor = UIColor.white
@@ -87,16 +82,85 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(resetTrack), name: UIApplication.willEnterForegroundNotification, object:nil)
+        notificationCenter.addObserver(self, selector: #selector(background), name: UIApplication.didEnterBackgroundNotification, object:nil)
+        images = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: Bundle.main)
+        config.detectionImages = images
+        //config.automaticImageScaleEstimationEnabled = true
+        //print(images)
+        ar.run(config, options: [.resetTracking, .removeExistingAnchors])
     }
-
+    @IBAction func resetAnchor(_ sender: Any) {
+        if(anchorAnchor != nil){
+            ar.remove(anchor: anchorAnchor!)
+            anchorAnchor = nil
+            detected = false
+            session(ar, cameraDidChangeTrackingState: ar.currentFrame!.camera)
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        ar.pause()
+    }
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        if !detected{
+            let old = config.detectionImages
+            switch camera.trackingState{
+                
+            case .limited(let reason):
+                //config.detectionImages = []
+                statusLight.backgroundColor = UIColor.red
+                statusLabel.text = statuses.notReady.rawValue
+                
+            case .notAvailable:
+                //config.detectionImages = []
+                statusLight.backgroundColor = UIColor.red
+                statusLabel.text = statuses.notReady.rawValue
+            case.normal:
+                //config.detectionImages = images
+                statusLight.backgroundColor = UIColor.yellow
+                statusLabel.text = statuses.ready.rawValue
+                
+            }
+            //if(old != config.detectionImages){
+            //    ar.run(config, options: [])
+            //}
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         print("Appear")
         resetTrack()
     }
-    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let imageAnch = (anchor as? ARImageAnchor)else{
+            return
+        }
+        print("Found an Image")
+        let plane = SCNPlane(width: imageAnch.referenceImage.physicalSize.width,
+                             height: imageAnch.referenceImage.physicalSize.height)
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.opacity = 0.8
+        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.yellow
+        let changeColor = SCNAction.customAction(duration: 1) { (node, time) in
+            let percentage = pow((time/1),1)
+            let color = UIColor(displayP3Red: 1-percentage, green: 1, blue: 0, alpha: 1)
+            node.geometry?.materials.first?.diffuse.contents = color
+        }
+        planeNode.runAction(changeColor)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.detected = true
+            self.statusLight.backgroundColor = UIColor.green
+            self.statusLabel.text = statuses.detected.rawValue
+        }
+        planeNode.eulerAngles.x = -.pi / 2
+        node.addChildNode(planeNode)
+        anchorAnchor = imageAnch
+    }
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         guard let mesh = (anchor as? ARMeshAnchor) else{
-            return nil
+            guard let imageAnch = (anchor as? ARImageAnchor)else{
+                return nil
+            }
+            ar.setWorldOrigin(relativeTransform: imageAnch.transform)
+            return SCNNode()
         }
         coach.setActive(false, animated: true)
         DispatchQueue.main.async {
@@ -144,15 +208,19 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
     }
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let mesh = (anchor as? ARMeshAnchor) else{
+            guard let imageAnch = (anchor as? ARImageAnchor)else{
+                return
+            }
+            ar.setWorldOrigin(relativeTransform: imageAnch.transform)
             return
         }
         coach.setActive(false, animated: true)
         let vertices = SCNGeometrySource(buffer: mesh.geometry.vertices.buffer, vertexFormat: mesh.geometry.vertices.format, semantic: .vertex, vertexCount: mesh.geometry.vertices.count, dataOffset: mesh.geometry.vertices.offset, dataStride: mesh.geometry.vertices.stride)
-
+        
         let normals = SCNGeometrySource(buffer: mesh.geometry.normals.buffer, vertexFormat: mesh.geometry.normals.format, semantic: .normal, vertexCount: mesh.geometry.normals.count, dataOffset: mesh.geometry.normals.offset, dataStride: mesh.geometry.normals.stride)
-
+        
         let faces = SCNGeometryElement(data: Data(bytesNoCopy: mesh.geometry.faces.buffer.contents(), count: mesh.geometry.faces.buffer.length, deallocator: .none), primitiveType: .triangles, primitiveCount: mesh.geometry.faces.count, bytesPerIndex: mesh.geometry.faces.bytesPerIndex)
-
+        
         
         let node_fill = node.childNode(withName: "Fill", recursively: false)!
         let node_outline = node.childNode(withName: "Outline", recursively: false)!
@@ -170,7 +238,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
     func start() -> Bool {
         config.sceneReconstruction = .mesh
         ar.run(config, options: [])
-                coach.setActive(true, animated: true)
+        coach.setActive(true, animated: true)
         return true
     }
     func stop() -> Bool {
@@ -179,7 +247,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
         coach.setActive(false, animated: true)
         return true
     }
-
+    
     @objc func save(){
         print("Saving")
         record.circle()
@@ -198,7 +266,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
             let vertices = geometry.vertices
             let verticesPointer = UnsafeMutableRawPointer.allocate(byteCount: vertices.count * vertices.stride, alignment: vertices.stride)
             verticesPointer.copyMemory(from: vertices.buffer.contents(), byteCount: vertices.count * vertices.stride)
-            print("Offset:"+String(vertices.offset))
+            //print("Offset:"+String(vertices.offset))
             let faces = geometry.faces
             
             for vertexIndex in 0..<vertices.count{
@@ -234,32 +302,44 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
             verticesPointer.deallocate()
             
         }
-        performSegue(withIdentifier: "saveSegue", sender: (asset, verticesCount, false))
+        self.ar.getCurrentWorldMap(completionHandler: { (map, error) in
+            if(error != nil){
+                print("World Map Error: "+error.debugDescription)
+            }
+            self.performSegue(withIdentifier: "saveSegue", sender: (asset, verticesCount, self.detected, map))
+        })
+        
         print("Done")
         
     }
     @IBSegueAction func segueAction(_ coder: NSCoder, sender: Any?) -> ViewerSave? {
         let vs = ViewerSave(coder: coder)
-        vs?.asset = (sender as! (MDLAsset, Int, Bool)).0
-        vs?.verticesCount = (sender as! (MDLAsset, Int, Bool)).1
-        vs?.anchorFound = (sender as! (MDLAsset, Int, Bool)).2
+        vs?.asset = (sender as! (MDLAsset, Int, Bool, ARWorldMap?)).0
+        vs?.verticesCount = (sender as! (MDLAsset, Int, Bool, ARWorldMap?)).1
+        vs?.anchorFound = (sender as! (MDLAsset, Int, Bool, ARWorldMap?)).2
+        vs?.worldMap = (sender as! (MDLAsset, Int, Bool, ARWorldMap?)).3
         vs?.isModalInPresentation = true
         vs?.presenter = self
+        if(workingProject != nil){
+            vs?.project = workingProject
+            vs?.editingMode = true
+        }
         return vs
     }
     @objc func resetTrack(){
-
+        
         if ar.currentFrame == nil{
             return
         }
         done.isEnabled = false
-        for anchor in ar.currentFrame!.anchors{
-            ar.remove(anchor: anchor)
-        }
-        ar.run(config, options: [.resetSceneReconstruction, .resetTracking])
+        //        for anchor in ar.currentFrame!.anchors{
+        //            ar.remove(anchor: anchor)
+        //        }
+        ar.run(config, options: [.resetSceneReconstruction, .resetTracking, .removeExistingAnchors])
         if(config.sceneReconstruction == .mesh){
             coach.setActive(true, animated: true)
         }
+        resetAnchor("")
     }
     
     
@@ -268,6 +348,15 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
         let vertex = pointer.assumingMemoryBound(to: (Float, Float, Float).self).pointee
         return vertex
     }
-
+    @objc func background(){
+        ar.pause()
+    }
+    
 }
 
+
+enum statuses:String{
+    case notReady = "Not ready to detect Anchor"
+    case ready = "Ready to detect Anchor"
+    case detected = "Anchor detected. Press here to reset it"
+}

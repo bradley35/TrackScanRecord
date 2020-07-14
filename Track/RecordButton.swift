@@ -12,7 +12,7 @@ import UIKit
 class RecordButton:UIButton{
     let record = CAShapeLayer()
     let outline = CAShapeLayer()
-    var delegate: RecordButtonDelegate?
+    weak var delegate: RecordButtonDelegate?
     var toggle = false
     
     let circlePath = circlePathWithCenter(center: CGPoint(x:50, y:50), radius: 37.5).cgPath//CGPath(ellipseIn: CGRect(x: 12.5, y: 12.5, width: 75, height: 75), transform: nil)
@@ -46,7 +46,7 @@ class RecordButton:UIButton{
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    @objc func down(sender:UIButton){
+    @objc override func down(sender:UIButton){
         push()
     }
     @objc func click(sender:UIButton){
@@ -139,7 +139,7 @@ class RecordButton:UIButton{
     }
 }
 
-protocol RecordButtonDelegate {
+protocol RecordButtonDelegate:AnyObject {
     func start() -> Bool
     func stop() -> Bool
 }
