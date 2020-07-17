@@ -126,14 +126,13 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-        print("Appear")
         resetTrack()
     }
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnch = (anchor as? ARImageAnchor)else{
             return
         }
-        print("Found an Image")
+        
         let plane = SCNPlane(width: imageAnch.referenceImage.physicalSize.width,
                              height: imageAnch.referenceImage.physicalSize.height)
         let planeNode = SCNNode(geometry: plane)
@@ -249,7 +248,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
     }
     
     @objc func save(){
-        print("Saving")
+        
         record.circle()
         record.toggle = false
         stop()
@@ -309,7 +308,6 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate, Re
             self.performSegue(withIdentifier: "saveSegue", sender: (asset, verticesCount, self.detected, map))
         })
         
-        print("Done")
         
     }
     @IBSegueAction func segueAction(_ coder: NSCoder, sender: Any?) -> ViewerSave? {

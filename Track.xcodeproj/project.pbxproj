@@ -8,9 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1C15C47124BD18D900257FBD /* TrackingToBlender in Frameworks */ = {isa = PBXBuildFile; productRef = 1C15C47024BD18D900257FBD /* TrackingToBlender */; };
+		1C15C47324BE4A2900257FBD /* Additional.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C15C47224BE4A2900257FBD /* Additional.storyboard */; };
+		1C15C47524BE633700257FBD /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C15C47424BE633700257FBD /* Help.swift */; };
 		1C40E37C24AD9F0700795EAD /* FileHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40E37B24AD9F0700795EAD /* FileHolder.swift */; };
+		1C45C50D24BFEAD000BA3EBE /* TrackAnchor7x7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1C45C50C24BFEAD000BA3EBE /* TrackAnchor7x7.pdf */; };
+		1C45C50F24BFF37600BA3EBE /* PDFPop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C45C50E24BFF37600BA3EBE /* PDFPop.swift */; };
 		1C4D940E24B7F18E001F92F7 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D940D24B7F18E001F92F7 /* Buttons.swift */; };
 		1C4D941124BA2772001F92F7 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4D941024BA2772001F92F7 /* Zip */; };
+		1C534D2824BFA8D400C5FB2E /* HelpScreens.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1C534D2724BFA8D400C5FB2E /* HelpScreens.xml */; };
 		1C5413B424B664AD0073C055 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5413B324B664AD0073C055 /* MainView.swift */; };
 		1C71B16D24BAA75400DB49DC /* TrackedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71B16C24BAA75400DB49DC /* TrackedData.swift */; };
 		1C85A07824B3ADD30041B9CE /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85A07724B3ADD30041B9CE /* VideoRecordViewController.swift */; };
@@ -23,6 +28,9 @@
 		1C879DE324A7F6BB007896C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C879DE124A7F6BB007896C2 /* LaunchScreen.storyboard */; };
 		1C879DEE24A7F6BB007896C2 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DED24A7F6BB007896C2 /* TrackTests.swift */; };
 		1C879DF924A7F6BB007896C2 /* TrackUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DF824A7F6BB007896C2 /* TrackUITests.swift */; };
+		1CA600E724C0E4B20024BB58 /* Scanning Room.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1CA600E624C0E4B20024BB58 /* Scanning Room.pdf */; };
+		1CA600E924C0E7450024BB58 /* Recording Video.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1CA600E824C0E7450024BB58 /* Recording Video.pdf */; };
+		1CA600EB24C0EE6A0024BB58 /* Importing To Blender.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1CA600EA24C0EE6A0024BB58 /* Importing To Blender.pdf */; };
 		1CEF99B724AA6276001328C3 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEF99B624AA6276001328C3 /* RecordButton.swift */; };
 		1CEF99B924AAB614001328C3 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF99B824AAB614001328C3 /* ModelIO.framework */; };
 		1CEF99BA24AAB654001328C3 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF13B8924A7FC5C0049E147 /* ARKit.framework */; };
@@ -48,8 +56,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C15C47224BE4A2900257FBD /* Additional.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Additional.storyboard; sourceTree = "<group>"; };
+		1C15C47424BE633700257FBD /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
 		1C40E37B24AD9F0700795EAD /* FileHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHolder.swift; sourceTree = "<group>"; };
+		1C45C50C24BFEAD000BA3EBE /* TrackAnchor7x7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TrackAnchor7x7.pdf; sourceTree = "<group>"; };
+		1C45C50E24BFF37600BA3EBE /* PDFPop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPop.swift; sourceTree = "<group>"; };
 		1C4D940D24B7F18E001F92F7 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		1C534D2724BFA8D400C5FB2E /* HelpScreens.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HelpScreens.xml; sourceTree = "<group>"; };
 		1C5413B324B664AD0073C055 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1C71B16C24BAA75400DB49DC /* TrackedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackedData.swift; sourceTree = "<group>"; };
 		1C85A07724B3ADD30041B9CE /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +81,9 @@
 		1C879DF424A7F6BB007896C2 /* TrackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C879DF824A7F6BB007896C2 /* TrackUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackUITests.swift; sourceTree = "<group>"; };
 		1C879DFA24A7F6BB007896C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CA600E624C0E4B20024BB58 /* Scanning Room.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Scanning Room.pdf"; sourceTree = "<group>"; };
+		1CA600E824C0E7450024BB58 /* Recording Video.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Recording Video.pdf"; sourceTree = "<group>"; };
+		1CA600EA24C0EE6A0024BB58 /* Importing To Blender.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Importing To Blender.pdf"; sourceTree = "<group>"; };
 		1CEF99B624AA6276001328C3 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		1CEF99B824AAB614001328C3 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		1CEF99BB24ABA8F2001328C3 /* ViewerSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerSave.swift; sourceTree = "<group>"; };
@@ -134,11 +150,17 @@
 				1C879DD824A7F6BA007896C2 /* SceneDelegate.swift */,
 				1C879DDA24A7F6BA007896C2 /* ViewController.swift */,
 				1C879DDC24A7F6BA007896C2 /* Main.storyboard */,
+				1C45C50E24BFF37600BA3EBE /* PDFPop.swift */,
+				1C15C47424BE633700257FBD /* Help.swift */,
+				1C534D2724BFA8D400C5FB2E /* HelpScreens.xml */,
+				1C15C47224BE4A2900257FBD /* Additional.storyboard */,
 				1C5413B324B664AD0073C055 /* MainView.swift */,
 				1C4D940D24B7F18E001F92F7 /* Buttons.swift */,
 				1C85A07724B3ADD30041B9CE /* VideoRecordViewController.swift */,
 				1C71B16C24BAA75400DB49DC /* TrackedData.swift */,
 				1C40E37B24AD9F0700795EAD /* FileHolder.swift */,
+				1CA600EC24C0EE7F0024BB58 /* Help PDFs */,
+				1C45C50C24BFEAD000BA3EBE /* TrackAnchor7x7.pdf */,
 				1C85A07B24B3C8640041B9CE /* SceneAssets.scnassets */,
 				1CEF99BB24ABA8F2001328C3 /* ViewerSave.swift */,
 				1CEF99B624AA6276001328C3 /* RecordButton.swift */,
@@ -165,6 +187,16 @@
 				1C879DFA24A7F6BB007896C2 /* Info.plist */,
 			);
 			path = TrackUITests;
+			sourceTree = "<group>";
+		};
+		1CA600EC24C0EE7F0024BB58 /* Help PDFs */ = {
+			isa = PBXGroup;
+			children = (
+				1CA600E624C0E4B20024BB58 /* Scanning Room.pdf */,
+				1CA600E824C0E7450024BB58 /* Recording Video.pdf */,
+				1CA600EA24C0EE6A0024BB58 /* Importing To Blender.pdf */,
+			);
+			path = "Help PDFs";
 			sourceTree = "<group>";
 		};
 		1CF13B8824A7FC5C0049E147 /* Frameworks */ = {
@@ -291,9 +323,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C85A07C24B3C8640041B9CE /* SceneAssets.scnassets in Resources */,
+				1CA600E924C0E7450024BB58 /* Recording Video.pdf in Resources */,
+				1C15C47324BE4A2900257FBD /* Additional.storyboard in Resources */,
+				1C45C50D24BFEAD000BA3EBE /* TrackAnchor7x7.pdf in Resources */,
+				1C534D2824BFA8D400C5FB2E /* HelpScreens.xml in Resources */,
 				1C879DE324A7F6BB007896C2 /* LaunchScreen.storyboard in Resources */,
+				1CA600E724C0E4B20024BB58 /* Scanning Room.pdf in Resources */,
 				1C879DE024A7F6BB007896C2 /* Assets.xcassets in Resources */,
 				1C879DDE24A7F6BA007896C2 /* Main.storyboard in Resources */,
+				1CA600EB24C0EE6A0024BB58 /* Importing To Blender.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +360,9 @@
 				1C85A07824B3ADD30041B9CE /* VideoRecordViewController.swift in Sources */,
 				1C5413B424B664AD0073C055 /* MainView.swift in Sources */,
 				1CEF99B724AA6276001328C3 /* RecordButton.swift in Sources */,
+				1C45C50F24BFF37600BA3EBE /* PDFPop.swift in Sources */,
 				1C879DDB24A7F6BA007896C2 /* ViewController.swift in Sources */,
+				1C15C47524BE633700257FBD /* Help.swift in Sources */,
 				1C879DD724A7F6BA007896C2 /* AppDelegate.swift in Sources */,
 				1C71B16D24BAA75400DB49DC /* TrackedData.swift in Sources */,
 				1C40E37C24AD9F0700795EAD /* FileHolder.swift in Sources */,

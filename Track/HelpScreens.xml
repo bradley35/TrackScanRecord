@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cards>
+    <card>
+        <title>Download Anchor</title>
+        <id>down</id>
+        <color>252, 86, 76</color>
+        <image>AnchorIcon</image>
+    </card>
+    <card>
+        <title>Scanning Room</title>
+        <id>scan</id>
+        <color>150, 90, 240</color>
+        <image>ScanRoom</image>
+        <pdf>Scanning Room</pdf>
+    </card>
+    <card>
+        <title>Recording Video</title>
+        <id>scan</id>
+        <color>85, 240, 126</color>
+        <image>RecordVideo</image>
+        <pdf>Recording Video</pdf>
+    </card>
+    <card>
+        <title>Importing to Blender</title>
+        <id>scan</id>
+        <color>255, 128, 0</color>
+        <image>BlenderHelp</image>
+        <pdf>Importing To Blender</pdf>
+    </card>
+    
+</cards>

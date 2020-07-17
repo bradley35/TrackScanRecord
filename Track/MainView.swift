@@ -11,17 +11,29 @@ import UIKit
 import Zip
 import AVFoundation
 import AVKit
+import ARKit
 
-class MainView:UICollectionViewController{
+class MainView:UICollectionViewController, UICollectionViewDelegateFlowLayout{
+    var welcomeView:UIView!
     override func viewDidLoad() {
         self.collectionView.delaysContentTouches = false
+        let welcomeVC = UIStoryboard(name: "Additional", bundle: nil).instantiateViewController(withIdentifier: "emptyViewController")
+        welcomeView = welcomeVC.view
+        welcomeView.isHidden = true
+        self.view.addSubview(welcomeView)
     }
     override func viewWillAppear(_ animated: Bool) {
-        print("Appearing")
+        
         self.collectionView.reloadData()
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sharedFileHolder.listProjects().count
+        let count = sharedFileHolder.listProjects().count
+        if count <= 0{
+            welcomeView.isHidden = false
+        }else{
+            welcomeView.isHidden = true
+        }
+        return count
     }
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -39,7 +51,7 @@ class MainView:UICollectionViewController{
         
         let vrc = VideoRecordViewController(coder: coder)!
         if sender["project"] != nil{
-            print("Setting title")
+            
             vrc.project = sender["project"] as! Project
             vrc.index = sender["index"] as! Int
             vrc.parentCell = sender["cell"] as! MainCell
@@ -63,6 +75,12 @@ class MainView:UICollectionViewController{
         vs.rescanFunc = { proj in
             MainView.confirmVideoPermission { (allowed) in
                 if(!allowed){ self.alertVideoPermission(); return }
+                if(!ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)){
+                           var alert = UIAlertController(title: "LIDAR", message: "This feature is not supported on your device", preferredStyle: .alert)
+                           alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                           self.present(alert, animated: true, completion: nil)
+                           return
+                       }
                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "roomScan") as! ViewController
                 vc.workingProject = project
                 vc.hidesBottomBarWhenPushed = true
@@ -81,7 +99,12 @@ class MainView:UICollectionViewController{
         return popupView
     }
     @objc func newScan(_ sender: Any) {
-        // print("Clocking")
+        if(!ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)){
+            var alert = UIAlertController(title: "LIDAR", message: "This feature is not supported on your device", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
         MainView.confirmVideoPermission { (allowed) in
             if(!allowed){ self.alertVideoPermission(); return }
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "roomScan")
@@ -90,7 +113,6 @@ class MainView:UICollectionViewController{
         }
     }
     @objc func newVid(_ sender: Any) {
-        // print("Clocking")
         MainView.confirmVideoPermission { (allowed) in
             if(!allowed){ self.alertVideoPermission(); return }
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "vidScan")
@@ -117,6 +139,19 @@ class MainView:UICollectionViewController{
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let cellWidth:CGFloat = 375
+        let spacingWidth:CGFloat = 25
+
+        let perRow = ((self.view.frame.width-CGFloat(50)) / CGFloat((cellWidth+spacingWidth))).rounded(.towardZero)
+        let contentWidth = cellWidth*perRow + spacingWidth*(perRow-1)
+               let leftInset = (collectionView.layer.frame.size.width - contentWidth) / 2
+               let rightInset = leftInset
+
+        return UIEdgeInsets(top: 25, left: leftInset, bottom: 25, right: rightInset)
+    }
+    
     
 }
 
@@ -149,7 +184,7 @@ class MainCell:UICollectionViewCell, UITextFieldDelegate{
         button1.layer.borderWidth = 2
         var image1:UIImageView!
         if(project.hasModel){
-            image1 = try! UIImageView(image: UIImage(data: Data(contentsOf: project.modelThumb!)))
+            image1 = (try? UIImageView(image: UIImage(data: Data(contentsOf: project.modelThumb!)))) ?? UIImageView()
             button1.addTarget(self, action: #selector(previewModel(sender:)), for: .touchUpInside)
         }else{
             image1 = UIImageView(image: UIImage(named: "Scan Model"))
@@ -372,7 +407,6 @@ class MainCell:UICollectionViewCell, UITextFieldDelegate{
         }
         sharedFileHolder.updateProject(uuid: project.id, newProject: project)
         parent.collectionView.reloadItems(at: [parent.collectionView.indexPath(for: self)!])
-        print(index)
     }
     @IBAction func shareButton(_ sender: UIButton) {
         let alert = UIAlertController(title: "Exporting project", message: "Please wait...", preferredStyle: .alert)
@@ -420,7 +454,7 @@ class MainCell:UICollectionViewCell, UITextFieldDelegate{
         //parent.performSegue(withIdentifier: "previewSegue", sender: ["project":project, "index":sender.tag])
     }
     @IBAction func deleteButton(_ sender: UIButton) {
-        print("delete")
+        titleBar.resignFirstResponder()
         let popController = self.parent.storyboard!.instantiateViewController(withIdentifier: "deletePop")
         (popController.view.subviews.first! as! UIButton).addTarget(self, action: #selector(completeDelete(sender:)), for: .touchUpInside)
         popController.modalPresentationStyle = .popover
@@ -435,11 +469,14 @@ class MainCell:UICollectionViewCell, UITextFieldDelegate{
         self.parent.collectionView.performBatchUpdates({
             self.parent.collectionView.deleteItems(at: [self.parent.collectionView.indexPath(for: self)!])
         }, completion: nil)
-        print("Deleting")
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         project.name = textField.text!
         sharedFileHolder.updateProject(uuid: project.id, newProject: project)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 }

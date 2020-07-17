@@ -17,7 +17,6 @@ class FileHolder{
     var storageDirectory: URL
     let encoder = PropertyListEncoder()
     func listProjects() -> [Project]{
-        
         let contents = try! fileManager.contentsOfDirectory(atPath: storageDirectory.path)
         var list = [Project]()
         for content in contents{
@@ -33,7 +32,7 @@ class FileHolder{
                 continue
             }
             if(!project.saved){
-                print("Removing")
+                print("Removing Empty Project")
                 try? fileManager.removeItem(at: storageDirectory.appendingPathComponent(content))
             }else{
                 list.append(project)
@@ -72,7 +71,6 @@ class FileHolder{
 
             let project = Project(withModelName: nameEdited, id: uuid, thumb: storageDirectory.appendingPathComponent(uuid).appendingPathComponent("thumbnail.jpg"), hasAnchor: hasAnchor, vertices: vertices)
             try encoder.encode(project).write(to: storageDirectory.appendingPathComponent(uuid).appendingPathComponent("data.dat"))
-            print(project)
         } catch {
             print("Error")
         }
@@ -158,7 +156,6 @@ class FileHolder{
         let contents = try! fileManager.contentsOfDirectory(at: storageDirectory.appendingPathComponent(uuid), includingPropertiesForKeys: nil, options: [])
         try? Zip.zipFiles(paths: contents, zipFilePath: storageDirectory.appendingPathComponent(uuid).appendingPathComponent("export.zip"), password: nil, progress: {prog in
         
-        print(prog)
         })
         return storageDirectory.appendingPathComponent(uuid).appendingPathComponent("export.zip")
     }
@@ -174,7 +171,6 @@ class FileHolder{
         }
         try? Zip.zipFiles(paths: contents, zipFilePath: storageDirectory.appendingPathComponent(uuid).appendingPathComponent("export.zip"), password: nil, progress: {prog in
         
-        print(prog)
         })
         return storageDirectory.appendingPathComponent(uuid).appendingPathComponent("export.zip")
     }
