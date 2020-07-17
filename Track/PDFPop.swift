@@ -61,3 +61,15 @@ class PDFPop:UIViewController{
     }
     
 }
+
+class CreditsViewController:UIViewController{
+    @IBOutlet weak var close: UIBarButtonItem!
+    @IBOutlet weak var textArea: UITextView!
+    
+    @IBAction func closeAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    override func viewDidLoad() {
+        textArea.text = try? String(contentsOf: Bundle.main.url(forResource: "Credits", withExtension: nil)!)
+    }
+}

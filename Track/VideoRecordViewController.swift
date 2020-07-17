@@ -81,14 +81,13 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
         config.videoFormat = ARWorldTrackingConfiguration.supportedVideoFormats.first(where: { (format) -> Bool in
             return format.imageResolution==CGSize(width: 1920, height: 1080)
         })!
-        //print(ARWorldTrackingConfiguration.supportedVideoFormats)
-        //config.videoFormat = ARConfiguration.supportedVideoFormats
+        
         images = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: Bundle.main)
         config.detectionImages = images
         session.run(config, options: [.resetTracking, .removeExistingAnchors])
         if(project != nil){
             let saved_data = sharedFileHolder.loadModel(project: project!)
-            //print(saved_data.0.count)
+            
             for object in saved_data.0.childObjects(of: MDLObject.self){
                 let node = SCNNode(mdlObject: object)
                 node.geometry!.firstMaterial!.diffuse.contents = UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
@@ -96,7 +95,7 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
                 node.geometry!.firstMaterial!.isDoubleSided = false
                 node.isHidden = true
                 node.name = "Mesh"
-                //print("Adding")
+
                 cameraPositionView.scene!.rootNode.addChildNode(node)
             }
         }else{
@@ -176,7 +175,7 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
         try! self.timebase.setRate(0)
         writer.endSession(atSourceTime: lastVideoTimeStamp)
         writer.finishWriting {
-            print("Done")
+            
             self.audioSession.stopRunning()
             if(self.index == 0){
                 self.index = 1
@@ -211,7 +210,7 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
                         
                         
                         sharedFileHolder.updateProject(uuid: self.project!.id, newProject: self.project!)
-                        //print(namePopup.textFields?.first!.text!)
+                        
                         self.navigationController!.popViewController(animated: true)
                     }))
                     self.present(namePopup, animated: true, completion: nil)
@@ -265,7 +264,6 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
             vstart = true
             if(firstFrame == nil){
                 firstFrame = frame.capturedImage
-                print("First Frame")
             }
             var timing = CMSampleTimingInfo(duration: CMTime.invalid, presentationTimeStamp: timebase.time, decodeTimeStamp: CMTime.invalid)
             let t1 = tracking.points.last?.position ?? frame.camera.transform
@@ -289,10 +287,8 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
             
             writerInput.append(buffer!)
             lastVideoTimeStamp = timing.presentationTimeStamp
-            //print("W:"+String(CVPixelBufferGetWidth( frame.capturedImage))+" H:"+String(CVPixelBufferGetHeight(frame.capturedImage)))
         }
         
-        //print(timebase.time.convertScale(Int32(1), method: .roundTowardZero).seconds)
         durationLabel.text = formatter.string(from: Date(timeIntervalSinceReferenceDate: (timebase.time-(audioBaseTime ?? CMTime.zero)).seconds))
     }
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {

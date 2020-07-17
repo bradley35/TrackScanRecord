@@ -41,16 +41,16 @@ class Help:UICollectionViewController, UICollectionViewDelegateFlowLayout
         cell.prepare(dict: xmlData.cards[indexPath.item], parent:self)
         return cell
     }
-    func downloadAnchor(sender:UIView){
+    static func downloadAnchor(vc:UIViewController, sender:UIView){
         var alert = UIAlertController(title: "Anchor", message: "Please print out the following image so that the black outline makes a 7\" x 7\" square and place it somewhere visible in your space", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default){ action in
             let url = URL(fileURLWithPath: Bundle.main.path(forResource: "TrackAnchor7x7", ofType: "pdf")!)
             let items = [url]
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
             activityVC.popoverPresentationController!.sourceView = sender
-            self.present(activityVC, animated: true, completion: nil)
+            vc.present(activityVC, animated: true, completion: nil)
         })
-        self.present(alert, animated: true, completion: nil)
+        vc.present(alert, animated: true, completion: nil)
     }
 }
 class HelperCell:UICollectionViewCell{
@@ -80,7 +80,7 @@ class HelperCell:UICollectionViewCell{
         
         if(dict["id"] == "down"){
             action = {
-                parent.downloadAnchor(sender: self)
+                Help.downloadAnchor(vc:parent, sender: self)
             }
         }else if(dict["pdf"] != nil){
             action = {

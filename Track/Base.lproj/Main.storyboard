@@ -177,11 +177,69 @@
                             <outlet property="delegate" destination="5yA-x8-yZ6" id="0HR-ph-HBY"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Help" id="IEh-4P-Wzu"/>
+                    <navigationItem key="navigationItem" title="Help" id="IEh-4P-Wzu">
+                        <barButtonItem key="rightBarButtonItem" title="Credits" id="U3l-YK-Jbi">
+                            <connections>
+                                <segue destination="2oO-70-NrR" kind="showDetail" id="QQB-e0-dEI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PIf-VK-X99" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2688.1405563689605" y="-1403.3203125"/>
+        </scene>
+        <!--Credits View Controller-->
+        <scene sceneID="Eye-sz-PTl">
+            <objects>
+                <viewController id="2oO-70-NrR" customClass="CreditsViewController" customModule="Track" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Gi-uJ-Iw2">
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M9U-nw-pwa">
+                                <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Bv4-cG-mkd"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Credits" id="BqX-xs-PFS">
+                                        <barButtonItem key="rightBarButtonItem" title="Close" id="fsi-91-eq7">
+                                            <connections>
+                                                <action selector="closeAction:" destination="2oO-70-NrR" id="XsR-3D-znn"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HRH-MJ-GDW">
+                                <rect key="frame" x="0.0" y="57" width="712" height="927"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="HRH-MJ-GDW" firstAttribute="leading" secondItem="wJz-od-MMg" secondAttribute="leading" id="ExK-ey-1gE"/>
+                            <constraint firstItem="wJz-od-MMg" firstAttribute="trailing" secondItem="M9U-nw-pwa" secondAttribute="trailing" id="O0S-G1-Ice"/>
+                            <constraint firstItem="HRH-MJ-GDW" firstAttribute="top" secondItem="M9U-nw-pwa" secondAttribute="bottom" constant="13" id="Svq-db-cpH"/>
+                            <constraint firstItem="M9U-nw-pwa" firstAttribute="leading" secondItem="wJz-od-MMg" secondAttribute="leading" id="V3D-qH-fFM"/>
+                            <constraint firstItem="wJz-od-MMg" firstAttribute="bottom" secondItem="HRH-MJ-GDW" secondAttribute="bottom" id="YEH-Wk-neD"/>
+                            <constraint firstItem="M9U-nw-pwa" firstAttribute="top" secondItem="wJz-od-MMg" secondAttribute="top" id="cDZ-nk-vz4"/>
+                            <constraint firstItem="wJz-od-MMg" firstAttribute="trailing" secondItem="HRH-MJ-GDW" secondAttribute="trailing" id="fx7-o3-XXQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wJz-od-MMg"/>
+                    </view>
+                    <connections>
+                        <outlet property="close" destination="fsi-91-eq7" id="nuN-Zs-bxu"/>
+                        <outlet property="textArea" destination="HRH-MJ-GDW" id="bPy-8K-2XF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GZ5-8e-f61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2671.0102489019032" y="-603.515625"/>
         </scene>
         <!--Help-->
         <scene sceneID="tYl-jP-KMa">

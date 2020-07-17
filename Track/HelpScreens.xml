@@ -7,14 +7,14 @@
         <image>AnchorIcon</image>
     </card>
     <card>
-        <title>Scanning Room</title>
+        <title>Scanning a Room</title>
         <id>scan</id>
         <color>150, 90, 240</color>
         <image>ScanRoom</image>
         <pdf>Scanning Room</pdf>
     </card>
     <card>
-        <title>Recording Video</title>
+        <title>Recording a Video</title>
         <id>scan</id>
         <color>85, 240, 126</color>
         <image>RecordVideo</image>
@@ -27,5 +27,5 @@
         <image>BlenderHelp</image>
         <pdf>Importing To Blender</pdf>
     </card>
-    
+
 </cards>

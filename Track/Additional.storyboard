@@ -11,7 +11,7 @@
         <scene sceneID="0vQ-hq-bns">
             <objects>
                 <viewController storyboardIdentifier="emptyViewController" id="Tab-eK-uAh" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="W3o-e4-yN3">
+                    <view key="view" contentMode="scaleToFill" id="W3o-e4-yN3" customClass="WelcomeView" customModule="Track" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -36,11 +36,11 @@
                                 <fontDescription key="fontDescription" name="MuktaMahee-Light" family="Mukta Mahee" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7gj-qW-Phb">
-                                <rect key="frame" x="402" y="128" width="240" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconInApp" translatesAutoresizingMaskIntoConstraints="NO" id="7gj-qW-Phb">
+                                <rect key="frame" x="402" y="126.5" width="131" height="131"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="130.5" id="FBF-Oc-7dm"/>
-                                    <constraint firstAttribute="width" constant="240" id="voa-Ww-yY9"/>
+                                    <constraint firstAttribute="height" constant="131" id="FBF-Oc-7dm"/>
+                                    <constraint firstAttribute="width" constant="131" id="voa-Ww-yY9"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0uR-sI-iX3">
@@ -50,6 +50,9 @@
                                     <constraint firstAttribute="height" constant="30" id="wLE-b2-nFa"/>
                                 </constraints>
                                 <state key="normal" title="Download Anchor"/>
+                                <connections>
+                                    <action selector="downloadANchor:" destination="W3o-e4-yN3" eventType="touchUpInside" id="oDt-bf-6rx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,13 +60,16 @@
                             <constraint firstItem="0uR-sI-iX3" firstAttribute="centerX" secondItem="klD-wK-uKu" secondAttribute="centerX" id="5FJ-6Y-P91"/>
                             <constraint firstItem="jIG-wi-knP" firstAttribute="top" secondItem="klD-wK-uKu" secondAttribute="top" constant="168" id="7EB-wx-Q3V"/>
                             <constraint firstItem="h3g-Eq-G0M" firstAttribute="centerX" secondItem="klD-wK-uKu" secondAttribute="centerX" id="AoH-s5-8EW"/>
-                            <constraint firstItem="jIG-wi-knP" firstAttribute="leading" secondItem="7gj-qW-Phb" secondAttribute="trailing" constant="8" id="BMu-vC-3L7"/>
+                            <constraint firstItem="jIG-wi-knP" firstAttribute="leading" secondItem="7gj-qW-Phb" secondAttribute="trailing" constant="117" id="BMu-vC-3L7"/>
                             <constraint firstItem="0uR-sI-iX3" firstAttribute="top" secondItem="h3g-Eq-G0M" secondAttribute="bottom" constant="25" id="I0W-gN-k9r"/>
                             <constraint firstItem="h3g-Eq-G0M" firstAttribute="top" secondItem="jIG-wi-knP" secondAttribute="bottom" constant="80" id="Ol9-dz-oZc"/>
                             <constraint firstItem="7gj-qW-Phb" firstAttribute="centerY" secondItem="jIG-wi-knP" secondAttribute="centerY" id="Tfp-dd-ZuF"/>
                             <constraint firstItem="jIG-wi-knP" firstAttribute="leading" secondItem="h3g-Eq-G0M" secondAttribute="trailing" constant="-386.5" id="jd0-Ng-7VR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="klD-wK-uKu"/>
+                        <connections>
+                            <outlet property="iconView" destination="7gj-qW-Phb" id="R4J-5U-jlb"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WWc-ku-N8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -72,6 +78,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="app" catalog="system" width="128" height="114"/>
+        <image name="AppIconInApp" width="131" height="131"/>
     </resources>
 </document>
