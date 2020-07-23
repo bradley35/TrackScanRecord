@@ -20,6 +20,9 @@
 		1C64B07F24C1535100102E70 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C64B07E24C1535100102E70 /* WelcomeView.swift */; };
 		1C64B08124C218A400102E70 /* Credits in Resources */ = {isa = PBXBuildFile; fileRef = 1C64B08024C218A400102E70 /* Credits */; };
 		1C71B16D24BAA75400DB49DC /* TrackedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71B16C24BAA75400DB49DC /* TrackedData.swift */; };
+		1C764A7824C8D4360075849F /* matrix_operations.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A7724C8D4360075849F /* matrix_operations.metal */; };
+		1C764A7A24C8D44A0075849F /* Bronze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A7924C8D44A0075849F /* Bronze.swift */; };
+		1C764A7D24C8D5680075849F /* random.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A7C24C8D5680075849F /* random.metal */; };
 		1C85A07824B3ADD30041B9CE /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C85A07724B3ADD30041B9CE /* VideoRecordViewController.swift */; };
 		1C85A07C24B3C8640041B9CE /* SceneAssets.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C85A07B24B3C8640041B9CE /* SceneAssets.scnassets */; };
 		1C879DD724A7F6BA007896C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C879DD624A7F6BA007896C2 /* AppDelegate.swift */; };
@@ -69,6 +72,10 @@
 		1C64B07E24C1535100102E70 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1C64B08024C218A400102E70 /* Credits */ = {isa = PBXFileReference; explicitFileType = text; path = Credits; sourceTree = "<group>"; };
 		1C71B16C24BAA75400DB49DC /* TrackedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackedData.swift; sourceTree = "<group>"; };
+		1C764A7724C8D4360075849F /* matrix_operations.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = matrix_operations.metal; path = subs/Bronze/Bronze/matrix_operations.metal; sourceTree = SOURCE_ROOT; };
+		1C764A7924C8D44A0075849F /* Bronze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bronze.swift; path = subs/Bronze/Bronze/Bronze.swift; sourceTree = SOURCE_ROOT; };
+		1C764A7B24C8D5680075849F /* random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = random.h; path = subs/Bronze/Bronze/random.h; sourceTree = SOURCE_ROOT; };
+		1C764A7C24C8D5680075849F /* random.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = random.metal; path = subs/Bronze/Bronze/random.metal; sourceTree = SOURCE_ROOT; };
 		1C85A07724B3ADD30041B9CE /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		1C85A07B24B3C8640041B9CE /* SceneAssets.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = SceneAssets.scnassets; sourceTree = "<group>"; };
 		1C879DD324A7F6BA007896C2 /* Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Track.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +133,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C764A7624C8D42C0075849F /* Bronze */ = {
+			isa = PBXGroup;
+			children = (
+				1C764A7924C8D44A0075849F /* Bronze.swift */,
+				1C764A7B24C8D5680075849F /* random.h */,
+				1C764A7C24C8D5680075849F /* random.metal */,
+				1C764A7724C8D4360075849F /* matrix_operations.metal */,
+			);
+			path = Bronze;
+			sourceTree = "<group>";
+		};
 		1C879DCA24A7F6BA007896C2 = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +168,7 @@
 		1C879DD524A7F6BA007896C2 /* Track */ = {
 			isa = PBXGroup;
 			children = (
+				1C764A7624C8D42C0075849F /* Bronze */,
 				1C879DD624A7F6BA007896C2 /* AppDelegate.swift */,
 				1C879DD824A7F6BA007896C2 /* SceneDelegate.swift */,
 				1C879DDA24A7F6BA007896C2 /* ViewController.swift */,
@@ -368,13 +387,16 @@
 				1C5413B424B664AD0073C055 /* MainView.swift in Sources */,
 				1CEF99B724AA6276001328C3 /* RecordButton.swift in Sources */,
 				1C45C50F24BFF37600BA3EBE /* PDFPop.swift in Sources */,
+				1C764A7A24C8D44A0075849F /* Bronze.swift in Sources */,
 				1C879DDB24A7F6BA007896C2 /* ViewController.swift in Sources */,
 				1C15C47524BE633700257FBD /* Help.swift in Sources */,
 				1C64B07F24C1535100102E70 /* WelcomeView.swift in Sources */,
 				1C879DD724A7F6BA007896C2 /* AppDelegate.swift in Sources */,
 				1C71B16D24BAA75400DB49DC /* TrackedData.swift in Sources */,
+				1C764A7824C8D4360075849F /* matrix_operations.metal in Sources */,
 				1C40E37C24AD9F0700795EAD /* FileHolder.swift in Sources */,
 				1CEF99BC24ABA8F2001328C3 /* ViewerSave.swift in Sources */,
+				1C764A7D24C8D5680075849F /* random.metal in Sources */,
 				1C879DD924A7F6BA007896C2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,6 +572,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = UFN89QD7RP;
 				INFOPLIST_FILE = Track/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -571,6 +594,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = UFN89QD7RP;
 				INFOPLIST_FILE = Track/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;

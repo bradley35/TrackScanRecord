@@ -1,0 +1,3 @@
+[submodule "subs/Bronze"]
+	path = subs/Bronze
+	url = git@github.com:bradley35/Bronze.git

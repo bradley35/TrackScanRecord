@@ -124,14 +124,23 @@ class MainView:UICollectionViewController, UICollectionViewDelegateFlowLayout{
     static func confirmVideoPermission(response:@escaping (Bool)->()){
         switch AVCaptureDevice.authorizationStatus(for: .video){
         case .authorized:
-            response(true)
+            DispatchQueue.main.async {
+                response(true)
+            }
+            
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { (allowed) in
-                response(allowed)
+                DispatchQueue.main.async {
+                    response(allowed)
+                }
+                
             }
         default:
             //Not allowed
-            response(false)
+            DispatchQueue.main.async {
+                response(false)
+            }
+            
         }
     }
     func alertVideoPermission(){

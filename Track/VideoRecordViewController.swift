@@ -35,6 +35,8 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
     var recording = false
     
     var tracking = TrackingData()
+    var positions = [simd_float4x4]()
+    
     
     var writer:AVAssetWriter!
     var writerInput:AVAssetWriterInput!
@@ -55,6 +57,8 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
     var vstart = false
     var new = false
     var offset:CMTime!
+    var origin = simd_float4x4(1)
+    var bronze = Bronze()
     
     var lastVideoTimeStamp:CMTime!
     override func viewDidLoad() {
@@ -191,6 +195,16 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
             CGImageDestinationFinalize(destination!)
             self.project!.saved = true
             sharedFileHolder.updateProject(uuid: self.project!.id, newProject: self.project!)
+            
+            let gpumat_array = self.bronze.newGPUMatArrayFromSIMD(input: self.positions)
+            var inverse = self.origin.inverse
+            
+            let multiplier_gpumat = self.bronze.newGPUMatFromSIMD(input: &inverse)
+            self.bronze.multMatrixMultiInPlaceSquare(A: gpumat_array, B: multiplier_gpumat, right: true)
+            self.positions = gpumat_array.toSIMD()
+            for i in 0..<self.positions.count{
+                self.tracking.points[i].position = self.positions[i]
+            }
             try! self.tracking.saveToFile(project: self.project!, index: self.index)
             self.saveTrackingToPython()
             if(self.new){
@@ -268,7 +282,9 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
             var timing = CMSampleTimingInfo(duration: CMTime.invalid, presentationTimeStamp: timebase.time, decodeTimeStamp: CMTime.invalid)
             let t1 = tracking.points.last?.position ?? frame.camera.transform
             
-            tracking.points.append(TrackingPoint(timeStamp: (timebase.time-audioBaseTime!-offset).value, timeScale: timing.presentationTimeStamp.timescale, position: frame.camera.transform))
+            tracking.points.append(TrackingPoint(timeStamp: (timebase.time-audioBaseTime!-offset).value, timeScale: timing.presentationTimeStamp.timescale, position: simd_float4x4(0)))
+            positions.append(frame.camera.transform)
+            //tracking.points.append(TrackingPoint(timeStamp: (timebase.time-audioBaseTime!-offset).value, timeScale: timing.presentationTimeStamp.timescale, position: frame.camera.transform))
             
             let t2 = frame.camera.transform
             
@@ -359,7 +375,8 @@ class VideoRecordViewController:UIViewController, RecordButtonDelegate, ARSessio
         guard let imageAnch = (anchor as? ARImageAnchor)else{
             return nil
         }
-        session.setWorldOrigin(relativeTransform: imageAnch.transform)
+        origin = imageAnch.transform
+        //session.setWorldOrigin(relativeTransform: imageAnch.transform)
         return SCNNode()
     }
     
